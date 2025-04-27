@@ -6,12 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "db:setup": "chmod +x scripts/setup-db.sh && scripts/setup-db.sh",
-    "db:setup:win": "scripts\\setup-db.bat",
-    "db:push": "npx prisma db push",
-    "db:generate": "npx prisma generate",
-    "db:studio": "npx prisma studio"
+    "lint": "next lint"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
@@ -20,6 +15,7 @@
     "next": "15.2.3",
     "next-auth": "^4.24.11",
     "prisma": "^6.6.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss-animate": "^1.0.7"

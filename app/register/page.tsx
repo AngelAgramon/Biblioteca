@@ -38,6 +38,12 @@ export default function Register() {
       return
     }
     
+    // Validación de correo institucional
+    if (!formData.email.endsWith('@tectijuana.edu.mx')) {
+      setError("Debes utilizar un correo institucional (@tectijuana.edu.mx)")
+      return
+    }
+    
     setIsLoading(true)
     setError("")
     

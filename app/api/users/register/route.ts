@@ -15,6 +15,14 @@ export async function POST(request: Request) {
       )
     }
 
+    // Validar correo institucional
+    if (!email.endsWith('@tectijuana.edu.mx')) {
+      return NextResponse.json(
+        { message: "Debes utilizar un correo institucional (@tectijuana.edu.mx)" },
+        { status: 400 }
+      )
+    }
+
     // Verificar si el correo ya está registrado
     const existingUser = await prisma.user.findUnique({
       where: { email },

@@ -1,80 +1,24 @@
-# Biblioteca ITT
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Sistema de gestión de biblioteca para el Instituto Tecnológico de Tijuana.
+## Getting Started
 
-## Requisitos previos
-
-- [Node.js](https://nodejs.org/) (versión 18 o superior)
-- [Docker](https://www.docker.com/products/docker-desktop/) (para la base de datos PostgreSQL)
-- [Docker Compose](https://docs.docker.com/compose/install/) (normalmente incluido con Docker Desktop)
-
-## Configuración inicial
-
-1. Clona este repositorio:
-```bash
-git clone <url-del-repositorio>
-cd biblioteca
-```
-
-2. Instala las dependencias:
-```bash
-npm install
-```
-
-3. Copia el archivo de variables de entorno:
-```bash
-cp .env.example .env
-```
-
-4. Configura la base de datos PostgreSQL usando Docker:
-
-   **En macOS/Linux:**
-   ```bash
-   npm run db:setup
-   ```
-
-   **En Windows:**
-   ```bash
-   npm run db:setup:win
-   ```
-
-   Esto iniciará un contenedor Docker con PostgreSQL, generará el cliente Prisma y aplicará el esquema de base de datos.
-
-## Desarrollo
-
-Para iniciar el servidor de desarrollo:
+First, run the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Comandos útiles
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- `npm run dev`: Inicia el servidor de desarrollo
-- `npm run build`: Construye la aplicación para producción
-- `npm run start`: Inicia la aplicación en modo producción
-- `npm run db:studio`: Abre Prisma Studio para gestionar la base de datos visualmente
-- `npm run db:push`: Aplica cambios del esquema a la base de datos
-- `npm run db:generate`: Regenera el cliente Prisma
-
-## Estructura del proyecto
-
-- `/app`: Código principal de la aplicación (Next.js App Router)
-- `/app/api`: Rutas de API
-- `/app/components`: Componentes reutilizables
-- `/app/contexts`: Contextos de React (autenticación, etc.)
-- `/prisma`: Esquema y configuración de la base de datos
-
-## Tecnologías
-
-- [Next.js](https://nextjs.org/)
-- [Prisma](https://www.prisma.io/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [NextAuth.js](https://next-auth.js.org/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Lucide React](https://lucide.dev/)
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
