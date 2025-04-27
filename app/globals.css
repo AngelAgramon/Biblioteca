@@ -1,26 +1,66 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --border: 220 13% 91%;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --input: 220 13% 91%;
+  --ring: 220 13% 91%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --muted: 220 13% 91%;
+  --muted-foreground: 0 0% 40%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --primary: #16a34a;
+  --primary-dark: #15803d;
+  --secondary: #166534;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .text-primary {
+    @apply text-[#16a34a];
+  }
+
+  .bg-primary {
+    @apply bg-[#16a34a];
+  }
+
+  .border-primary {
+    @apply border-[#16a34a];
+  }
+
+  .text-secondary {
+    @apply text-[#166534];
+  }
+
+  .bg-secondary {
+    @apply bg-[#166534];
+  }
+
+  .border-secondary {
+    @apply border-[#166534];
+  }
+
+  .hover\:bg-primary:hover {
+    @apply hover:bg-[#15803d];
+  }
+
+  .focus\:ring-primary:focus {
+    @apply focus:ring-[#16a34a];
+  }
+
+  .focus\:border-primary:focus {
+    @apply focus:border-[#16a34a];
+  }
 }
