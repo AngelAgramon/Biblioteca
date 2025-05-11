@@ -17,8 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { purpose, comments } = body
-    
+    const { purpose, comments } = body as { purpose: string; comments: string }
     // Crear entrada
     const entry = await prisma.entry.create({
       data: {

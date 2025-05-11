@@ -1,8 +1,8 @@
 "use client"
 
+import React, { useEffect } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 import DashboardNav from "../components/DashboardNav"
 
 export default function DashboardLayout({

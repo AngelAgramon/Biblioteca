@@ -142,6 +142,28 @@ exports.Prisma.EntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BookScalarFieldEnum = {
+  id: 'id',
+  id_libro: 'id_libro',
+  unidad: 'unidad',
+  titulo: 'titulo',
+  autor: 'autor',
+  clasificacion: 'clasificacion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LoanScalarFieldEnum = {
+  id: 'id',
+  bookId: 'bookId',
+  userId: 'userId',
+  fechaPrestamo: 'fechaPrestamo',
+  fechaDevolucion: 'fechaDevolucion',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -161,9 +183,17 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.LoanStatus = exports.$Enums.LoanStatus = {
+  ACTIVO: 'ACTIVO',
+  DEVUELTO: 'DEVUELTO',
+  VENCIDO: 'VENCIDO'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
-  Entry: 'Entry'
+  Entry: 'Entry',
+  Book: 'Book',
+  Loan: 'Loan'
 };
 
 /**

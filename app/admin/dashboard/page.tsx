@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { BookOpen, Users, Calendar, BarChart3, Search, User, Settings } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "../../contexts/AuthContext"

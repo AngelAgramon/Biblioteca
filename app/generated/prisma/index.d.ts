@@ -23,6 +23,16 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Entry = $Result.DefaultSelection<Prisma.$EntryPayload>
+/**
+ * Model Book
+ * 
+ */
+export type Book = $Result.DefaultSelection<Prisma.$BookPayload>
+/**
+ * Model Loan
+ * 
+ */
+export type Loan = $Result.DefaultSelection<Prisma.$LoanPayload>
 
 /**
  * Enums
@@ -35,11 +45,24 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const LoanStatus: {
+  ACTIVO: 'ACTIVO',
+  DEVUELTO: 'DEVUELTO',
+  VENCIDO: 'VENCIDO'
+};
+
+export type LoanStatus = (typeof LoanStatus)[keyof typeof LoanStatus]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type LoanStatus = $Enums.LoanStatus
+
+export const LoanStatus: typeof $Enums.LoanStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -185,6 +208,26 @@ export class PrismaClient<
     * ```
     */
   get entry(): Prisma.EntryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.book`: Exposes CRUD operations for the **Book** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Books
+    * const books = await prisma.book.findMany()
+    * ```
+    */
+  get book(): Prisma.BookDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.loan`: Exposes CRUD operations for the **Loan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Loans
+    * const loans = await prisma.loan.findMany()
+    * ```
+    */
+  get loan(): Prisma.LoanDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -626,7 +669,9 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Entry: 'Entry'
+    Entry: 'Entry',
+    Book: 'Book',
+    Loan: 'Loan'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -645,7 +690,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "entry"
+      modelProps: "user" | "entry" | "book" | "loan"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -797,6 +842,154 @@ export namespace Prisma {
           }
         }
       }
+      Book: {
+        payload: Prisma.$BookPayload<ExtArgs>
+        fields: Prisma.BookFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          findFirst: {
+            args: Prisma.BookFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          findMany: {
+            args: Prisma.BookFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>[]
+          }
+          create: {
+            args: Prisma.BookCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          createMany: {
+            args: Prisma.BookCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>[]
+          }
+          delete: {
+            args: Prisma.BookDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          update: {
+            args: Prisma.BookUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BookUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>[]
+          }
+          upsert: {
+            args: Prisma.BookUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookPayload>
+          }
+          aggregate: {
+            args: Prisma.BookAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBook>
+          }
+          groupBy: {
+            args: Prisma.BookGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BookCountArgs<ExtArgs>
+            result: $Utils.Optional<BookCountAggregateOutputType> | number
+          }
+        }
+      }
+      Loan: {
+        payload: Prisma.$LoanPayload<ExtArgs>
+        fields: Prisma.LoanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LoanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LoanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          findFirst: {
+            args: Prisma.LoanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LoanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          findMany: {
+            args: Prisma.LoanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>[]
+          }
+          create: {
+            args: Prisma.LoanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          createMany: {
+            args: Prisma.LoanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LoanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>[]
+          }
+          delete: {
+            args: Prisma.LoanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          update: {
+            args: Prisma.LoanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          deleteMany: {
+            args: Prisma.LoanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LoanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LoanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>[]
+          }
+          upsert: {
+            args: Prisma.LoanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LoanPayload>
+          }
+          aggregate: {
+            args: Prisma.LoanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLoan>
+          }
+          groupBy: {
+            args: Prisma.LoanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LoanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LoanCountArgs<ExtArgs>
+            result: $Utils.Optional<LoanCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -883,6 +1076,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     entry?: EntryOmit
+    book?: BookOmit
+    loan?: LoanOmit
   }
 
   /* Types for Logging */
@@ -978,10 +1173,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     entries: number
+    loans: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     entries?: boolean | UserCountOutputTypeCountEntriesArgs
+    loans?: boolean | UserCountOutputTypeCountLoansArgs
   }
 
   // Custom InputTypes
@@ -1000,6 +1197,44 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EntryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanWhereInput
+  }
+
+
+  /**
+   * Count Type BookCountOutputType
+   */
+
+  export type BookCountOutputType = {
+    loans: number
+  }
+
+  export type BookCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    loans?: boolean | BookCountOutputTypeCountLoansArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BookCountOutputType without action
+   */
+  export type BookCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BookCountOutputType
+     */
+    select?: BookCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BookCountOutputType without action
+   */
+  export type BookCountOutputTypeCountLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanWhereInput
   }
 
 
@@ -1220,6 +1455,7 @@ export namespace Prisma {
     lastLoginAt?: boolean
     isActive?: boolean
     entries?: boolean | User$entriesArgs<ExtArgs>
+    loans?: boolean | User$loansArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1268,6 +1504,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "matricula" | "carrera" | "createdAt" | "updatedAt" | "lastLoginAt" | "isActive", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     entries?: boolean | User$entriesArgs<ExtArgs>
+    loans?: boolean | User$loansArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1277,6 +1514,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       entries: Prisma.$EntryPayload<ExtArgs>[]
+      loans: Prisma.$LoanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1685,6 +1923,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     entries<T extends User$entriesArgs<ExtArgs> = {}>(args?: Subset<T, User$entriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    loans<T extends User$loansArgs<ExtArgs> = {}>(args?: Subset<T, User$loansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2134,6 +2373,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EntryScalarFieldEnum | EntryScalarFieldEnum[]
+  }
+
+  /**
+   * User.loans
+   */
+  export type User$loansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    where?: LoanWhereInput
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    cursor?: LoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
   }
 
   /**
@@ -3253,6 +3516,2254 @@ export namespace Prisma {
 
 
   /**
+   * Model Book
+   */
+
+  export type AggregateBook = {
+    _count: BookCountAggregateOutputType | null
+    _avg: BookAvgAggregateOutputType | null
+    _sum: BookSumAggregateOutputType | null
+    _min: BookMinAggregateOutputType | null
+    _max: BookMaxAggregateOutputType | null
+  }
+
+  export type BookAvgAggregateOutputType = {
+    unidad: number | null
+  }
+
+  export type BookSumAggregateOutputType = {
+    unidad: number | null
+  }
+
+  export type BookMinAggregateOutputType = {
+    id: string | null
+    id_libro: string | null
+    unidad: number | null
+    titulo: string | null
+    autor: string | null
+    clasificacion: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookMaxAggregateOutputType = {
+    id: string | null
+    id_libro: string | null
+    unidad: number | null
+    titulo: string | null
+    autor: string | null
+    clasificacion: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookCountAggregateOutputType = {
+    id: number
+    id_libro: number
+    unidad: number
+    titulo: number
+    autor: number
+    clasificacion: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BookAvgAggregateInputType = {
+    unidad?: true
+  }
+
+  export type BookSumAggregateInputType = {
+    unidad?: true
+  }
+
+  export type BookMinAggregateInputType = {
+    id?: true
+    id_libro?: true
+    unidad?: true
+    titulo?: true
+    autor?: true
+    clasificacion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookMaxAggregateInputType = {
+    id?: true
+    id_libro?: true
+    unidad?: true
+    titulo?: true
+    autor?: true
+    clasificacion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookCountAggregateInputType = {
+    id?: true
+    id_libro?: true
+    unidad?: true
+    titulo?: true
+    autor?: true
+    clasificacion?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BookAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Book to aggregate.
+     */
+    where?: BookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Books to fetch.
+     */
+    orderBy?: BookOrderByWithRelationInput | BookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Books
+    **/
+    _count?: true | BookCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BookAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BookSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookMaxAggregateInputType
+  }
+
+  export type GetBookAggregateType<T extends BookAggregateArgs> = {
+        [P in keyof T & keyof AggregateBook]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBook[P]>
+      : GetScalarType<T[P], AggregateBook[P]>
+  }
+
+
+
+
+  export type BookGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookWhereInput
+    orderBy?: BookOrderByWithAggregationInput | BookOrderByWithAggregationInput[]
+    by: BookScalarFieldEnum[] | BookScalarFieldEnum
+    having?: BookScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookCountAggregateInputType | true
+    _avg?: BookAvgAggregateInputType
+    _sum?: BookSumAggregateInputType
+    _min?: BookMinAggregateInputType
+    _max?: BookMaxAggregateInputType
+  }
+
+  export type BookGroupByOutputType = {
+    id: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt: Date
+    updatedAt: Date
+    _count: BookCountAggregateOutputType | null
+    _avg: BookAvgAggregateOutputType | null
+    _sum: BookSumAggregateOutputType | null
+    _min: BookMinAggregateOutputType | null
+    _max: BookMaxAggregateOutputType | null
+  }
+
+  type GetBookGroupByPayload<T extends BookGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookGroupByOutputType[P]>
+            : GetScalarType<T[P], BookGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_libro?: boolean
+    unidad?: boolean
+    titulo?: boolean
+    autor?: boolean
+    clasificacion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    loans?: boolean | Book$loansArgs<ExtArgs>
+    _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["book"]>
+
+  export type BookSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_libro?: boolean
+    unidad?: boolean
+    titulo?: boolean
+    autor?: boolean
+    clasificacion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["book"]>
+
+  export type BookSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_libro?: boolean
+    unidad?: boolean
+    titulo?: boolean
+    autor?: boolean
+    clasificacion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["book"]>
+
+  export type BookSelectScalar = {
+    id?: boolean
+    id_libro?: boolean
+    unidad?: boolean
+    titulo?: boolean
+    autor?: boolean
+    clasificacion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_libro" | "unidad" | "titulo" | "autor" | "clasificacion" | "createdAt" | "updatedAt", ExtArgs["result"]["book"]>
+  export type BookInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    loans?: boolean | Book$loansArgs<ExtArgs>
+    _count?: boolean | BookCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BookIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type BookIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $BookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Book"
+    objects: {
+      loans: Prisma.$LoanPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_libro: string
+      unidad: number
+      titulo: string
+      autor: string
+      clasificacion: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["book"]>
+    composites: {}
+  }
+
+  type BookGetPayload<S extends boolean | null | undefined | BookDefaultArgs> = $Result.GetResult<Prisma.$BookPayload, S>
+
+  type BookCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BookFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookCountAggregateInputType | true
+    }
+
+  export interface BookDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Book'], meta: { name: 'Book' } }
+    /**
+     * Find zero or one Book that matches the filter.
+     * @param {BookFindUniqueArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookFindUniqueArgs>(args: SelectSubset<T, BookFindUniqueArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Book that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BookFindUniqueOrThrowArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookFindUniqueOrThrowArgs>(args: SelectSubset<T, BookFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookFindFirstArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookFindFirstArgs>(args?: SelectSubset<T, BookFindFirstArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Book that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookFindFirstOrThrowArgs} args - Arguments to find a Book
+     * @example
+     * // Get one Book
+     * const book = await prisma.book.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookFindFirstOrThrowArgs>(args?: SelectSubset<T, BookFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Books that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Books
+     * const books = await prisma.book.findMany()
+     * 
+     * // Get first 10 Books
+     * const books = await prisma.book.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookWithIdOnly = await prisma.book.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookFindManyArgs>(args?: SelectSubset<T, BookFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Book.
+     * @param {BookCreateArgs} args - Arguments to create a Book.
+     * @example
+     * // Create one Book
+     * const Book = await prisma.book.create({
+     *   data: {
+     *     // ... data to create a Book
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookCreateArgs>(args: SelectSubset<T, BookCreateArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Books.
+     * @param {BookCreateManyArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookCreateManyArgs>(args?: SelectSubset<T, BookCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Books and returns the data saved in the database.
+     * @param {BookCreateManyAndReturnArgs} args - Arguments to create many Books.
+     * @example
+     * // Create many Books
+     * const book = await prisma.book.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Books and only return the `id`
+     * const bookWithIdOnly = await prisma.book.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookCreateManyAndReturnArgs>(args?: SelectSubset<T, BookCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Book.
+     * @param {BookDeleteArgs} args - Arguments to delete one Book.
+     * @example
+     * // Delete one Book
+     * const Book = await prisma.book.delete({
+     *   where: {
+     *     // ... filter to delete one Book
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookDeleteArgs>(args: SelectSubset<T, BookDeleteArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Book.
+     * @param {BookUpdateArgs} args - Arguments to update one Book.
+     * @example
+     * // Update one Book
+     * const book = await prisma.book.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookUpdateArgs>(args: SelectSubset<T, BookUpdateArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Books.
+     * @param {BookDeleteManyArgs} args - Arguments to filter Books to delete.
+     * @example
+     * // Delete a few Books
+     * const { count } = await prisma.book.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookDeleteManyArgs>(args?: SelectSubset<T, BookDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Books.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Books
+     * const book = await prisma.book.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookUpdateManyArgs>(args: SelectSubset<T, BookUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Books and returns the data updated in the database.
+     * @param {BookUpdateManyAndReturnArgs} args - Arguments to update many Books.
+     * @example
+     * // Update many Books
+     * const book = await prisma.book.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Books and only return the `id`
+     * const bookWithIdOnly = await prisma.book.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BookUpdateManyAndReturnArgs>(args: SelectSubset<T, BookUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Book.
+     * @param {BookUpsertArgs} args - Arguments to update or create a Book.
+     * @example
+     * // Update or create a Book
+     * const book = await prisma.book.upsert({
+     *   create: {
+     *     // ... data to create a Book
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Book we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookUpsertArgs>(args: SelectSubset<T, BookUpsertArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Books.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookCountArgs} args - Arguments to filter Books to count.
+     * @example
+     * // Count the number of Books
+     * const count = await prisma.book.count({
+     *   where: {
+     *     // ... the filter for the Books we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookCountArgs>(
+      args?: Subset<T, BookCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Book.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookAggregateArgs>(args: Subset<T, BookAggregateArgs>): Prisma.PrismaPromise<GetBookAggregateType<T>>
+
+    /**
+     * Group by Book.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookGroupByArgs['orderBy'] }
+        : { orderBy?: BookGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Book model
+   */
+  readonly fields: BookFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Book.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    loans<T extends Book$loansArgs<ExtArgs> = {}>(args?: Subset<T, Book$loansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Book model
+   */
+  interface BookFieldRefs {
+    readonly id: FieldRef<"Book", 'String'>
+    readonly id_libro: FieldRef<"Book", 'String'>
+    readonly unidad: FieldRef<"Book", 'Int'>
+    readonly titulo: FieldRef<"Book", 'String'>
+    readonly autor: FieldRef<"Book", 'String'>
+    readonly clasificacion: FieldRef<"Book", 'String'>
+    readonly createdAt: FieldRef<"Book", 'DateTime'>
+    readonly updatedAt: FieldRef<"Book", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Book findUnique
+   */
+  export type BookFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter, which Book to fetch.
+     */
+    where: BookWhereUniqueInput
+  }
+
+  /**
+   * Book findUniqueOrThrow
+   */
+  export type BookFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter, which Book to fetch.
+     */
+    where: BookWhereUniqueInput
+  }
+
+  /**
+   * Book findFirst
+   */
+  export type BookFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter, which Book to fetch.
+     */
+    where?: BookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Books to fetch.
+     */
+    orderBy?: BookOrderByWithRelationInput | BookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Books.
+     */
+    cursor?: BookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Books.
+     */
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * Book findFirstOrThrow
+   */
+  export type BookFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter, which Book to fetch.
+     */
+    where?: BookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Books to fetch.
+     */
+    orderBy?: BookOrderByWithRelationInput | BookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Books.
+     */
+    cursor?: BookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Books.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Books.
+     */
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * Book findMany
+   */
+  export type BookFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter, which Books to fetch.
+     */
+    where?: BookWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Books to fetch.
+     */
+    orderBy?: BookOrderByWithRelationInput | BookOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Books.
+     */
+    cursor?: BookWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Books from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Books.
+     */
+    skip?: number
+    distinct?: BookScalarFieldEnum | BookScalarFieldEnum[]
+  }
+
+  /**
+   * Book create
+   */
+  export type BookCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Book.
+     */
+    data: XOR<BookCreateInput, BookUncheckedCreateInput>
+  }
+
+  /**
+   * Book createMany
+   */
+  export type BookCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Books.
+     */
+    data: BookCreateManyInput | BookCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Book createManyAndReturn
+   */
+  export type BookCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * The data used to create many Books.
+     */
+    data: BookCreateManyInput | BookCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Book update
+   */
+  export type BookUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Book.
+     */
+    data: XOR<BookUpdateInput, BookUncheckedUpdateInput>
+    /**
+     * Choose, which Book to update.
+     */
+    where: BookWhereUniqueInput
+  }
+
+  /**
+   * Book updateMany
+   */
+  export type BookUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Books.
+     */
+    data: XOR<BookUpdateManyMutationInput, BookUncheckedUpdateManyInput>
+    /**
+     * Filter which Books to update
+     */
+    where?: BookWhereInput
+    /**
+     * Limit how many Books to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Book updateManyAndReturn
+   */
+  export type BookUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * The data used to update Books.
+     */
+    data: XOR<BookUpdateManyMutationInput, BookUncheckedUpdateManyInput>
+    /**
+     * Filter which Books to update
+     */
+    where?: BookWhereInput
+    /**
+     * Limit how many Books to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Book upsert
+   */
+  export type BookUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Book to update in case it exists.
+     */
+    where: BookWhereUniqueInput
+    /**
+     * In case the Book found by the `where` argument doesn't exist, create a new Book with this data.
+     */
+    create: XOR<BookCreateInput, BookUncheckedCreateInput>
+    /**
+     * In case the Book was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookUpdateInput, BookUncheckedUpdateInput>
+  }
+
+  /**
+   * Book delete
+   */
+  export type BookDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+    /**
+     * Filter which Book to delete.
+     */
+    where: BookWhereUniqueInput
+  }
+
+  /**
+   * Book deleteMany
+   */
+  export type BookDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Books to delete
+     */
+    where?: BookWhereInput
+    /**
+     * Limit how many Books to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Book.loans
+   */
+  export type Book$loansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    where?: LoanWhereInput
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    cursor?: LoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
+   * Book without action
+   */
+  export type BookDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Book
+     */
+    select?: BookSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Book
+     */
+    omit?: BookOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Loan
+   */
+
+  export type AggregateLoan = {
+    _count: LoanCountAggregateOutputType | null
+    _min: LoanMinAggregateOutputType | null
+    _max: LoanMaxAggregateOutputType | null
+  }
+
+  export type LoanMinAggregateOutputType = {
+    id: string | null
+    bookId: string | null
+    userId: string | null
+    fechaPrestamo: Date | null
+    fechaDevolucion: Date | null
+    estado: $Enums.LoanStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LoanMaxAggregateOutputType = {
+    id: string | null
+    bookId: string | null
+    userId: string | null
+    fechaPrestamo: Date | null
+    fechaDevolucion: Date | null
+    estado: $Enums.LoanStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LoanCountAggregateOutputType = {
+    id: number
+    bookId: number
+    userId: number
+    fechaPrestamo: number
+    fechaDevolucion: number
+    estado: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LoanMinAggregateInputType = {
+    id?: true
+    bookId?: true
+    userId?: true
+    fechaPrestamo?: true
+    fechaDevolucion?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LoanMaxAggregateInputType = {
+    id?: true
+    bookId?: true
+    userId?: true
+    fechaPrestamo?: true
+    fechaDevolucion?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LoanCountAggregateInputType = {
+    id?: true
+    bookId?: true
+    userId?: true
+    fechaPrestamo?: true
+    fechaDevolucion?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LoanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Loan to aggregate.
+     */
+    where?: LoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Loans to fetch.
+     */
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Loans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Loans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Loans
+    **/
+    _count?: true | LoanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LoanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LoanMaxAggregateInputType
+  }
+
+  export type GetLoanAggregateType<T extends LoanAggregateArgs> = {
+        [P in keyof T & keyof AggregateLoan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLoan[P]>
+      : GetScalarType<T[P], AggregateLoan[P]>
+  }
+
+
+
+
+  export type LoanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LoanWhereInput
+    orderBy?: LoanOrderByWithAggregationInput | LoanOrderByWithAggregationInput[]
+    by: LoanScalarFieldEnum[] | LoanScalarFieldEnum
+    having?: LoanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LoanCountAggregateInputType | true
+    _min?: LoanMinAggregateInputType
+    _max?: LoanMaxAggregateInputType
+  }
+
+  export type LoanGroupByOutputType = {
+    id: string
+    bookId: string
+    userId: string
+    fechaPrestamo: Date
+    fechaDevolucion: Date | null
+    estado: $Enums.LoanStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: LoanCountAggregateOutputType | null
+    _min: LoanMinAggregateOutputType | null
+    _max: LoanMaxAggregateOutputType | null
+  }
+
+  type GetLoanGroupByPayload<T extends LoanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LoanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LoanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LoanGroupByOutputType[P]>
+            : GetScalarType<T[P], LoanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LoanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookId?: boolean
+    userId?: boolean
+    fechaPrestamo?: boolean
+    fechaDevolucion?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loan"]>
+
+  export type LoanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookId?: boolean
+    userId?: boolean
+    fechaPrestamo?: boolean
+    fechaDevolucion?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loan"]>
+
+  export type LoanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bookId?: boolean
+    userId?: boolean
+    fechaPrestamo?: boolean
+    fechaDevolucion?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["loan"]>
+
+  export type LoanSelectScalar = {
+    id?: boolean
+    bookId?: boolean
+    userId?: boolean
+    fechaPrestamo?: boolean
+    fechaDevolucion?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LoanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bookId" | "userId" | "fechaPrestamo" | "fechaDevolucion" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["loan"]>
+  export type LoanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LoanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LoanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    book?: boolean | BookDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LoanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Loan"
+    objects: {
+      book: Prisma.$BookPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bookId: string
+      userId: string
+      fechaPrestamo: Date
+      fechaDevolucion: Date | null
+      estado: $Enums.LoanStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["loan"]>
+    composites: {}
+  }
+
+  type LoanGetPayload<S extends boolean | null | undefined | LoanDefaultArgs> = $Result.GetResult<Prisma.$LoanPayload, S>
+
+  type LoanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LoanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LoanCountAggregateInputType | true
+    }
+
+  export interface LoanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Loan'], meta: { name: 'Loan' } }
+    /**
+     * Find zero or one Loan that matches the filter.
+     * @param {LoanFindUniqueArgs} args - Arguments to find a Loan
+     * @example
+     * // Get one Loan
+     * const loan = await prisma.loan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LoanFindUniqueArgs>(args: SelectSubset<T, LoanFindUniqueArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Loan that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LoanFindUniqueOrThrowArgs} args - Arguments to find a Loan
+     * @example
+     * // Get one Loan
+     * const loan = await prisma.loan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LoanFindUniqueOrThrowArgs>(args: SelectSubset<T, LoanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Loan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanFindFirstArgs} args - Arguments to find a Loan
+     * @example
+     * // Get one Loan
+     * const loan = await prisma.loan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LoanFindFirstArgs>(args?: SelectSubset<T, LoanFindFirstArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Loan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanFindFirstOrThrowArgs} args - Arguments to find a Loan
+     * @example
+     * // Get one Loan
+     * const loan = await prisma.loan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LoanFindFirstOrThrowArgs>(args?: SelectSubset<T, LoanFindFirstOrThrowArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Loans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Loans
+     * const loans = await prisma.loan.findMany()
+     * 
+     * // Get first 10 Loans
+     * const loans = await prisma.loan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const loanWithIdOnly = await prisma.loan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LoanFindManyArgs>(args?: SelectSubset<T, LoanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Loan.
+     * @param {LoanCreateArgs} args - Arguments to create a Loan.
+     * @example
+     * // Create one Loan
+     * const Loan = await prisma.loan.create({
+     *   data: {
+     *     // ... data to create a Loan
+     *   }
+     * })
+     * 
+     */
+    create<T extends LoanCreateArgs>(args: SelectSubset<T, LoanCreateArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Loans.
+     * @param {LoanCreateManyArgs} args - Arguments to create many Loans.
+     * @example
+     * // Create many Loans
+     * const loan = await prisma.loan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LoanCreateManyArgs>(args?: SelectSubset<T, LoanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Loans and returns the data saved in the database.
+     * @param {LoanCreateManyAndReturnArgs} args - Arguments to create many Loans.
+     * @example
+     * // Create many Loans
+     * const loan = await prisma.loan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Loans and only return the `id`
+     * const loanWithIdOnly = await prisma.loan.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LoanCreateManyAndReturnArgs>(args?: SelectSubset<T, LoanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Loan.
+     * @param {LoanDeleteArgs} args - Arguments to delete one Loan.
+     * @example
+     * // Delete one Loan
+     * const Loan = await prisma.loan.delete({
+     *   where: {
+     *     // ... filter to delete one Loan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LoanDeleteArgs>(args: SelectSubset<T, LoanDeleteArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Loan.
+     * @param {LoanUpdateArgs} args - Arguments to update one Loan.
+     * @example
+     * // Update one Loan
+     * const loan = await prisma.loan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LoanUpdateArgs>(args: SelectSubset<T, LoanUpdateArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Loans.
+     * @param {LoanDeleteManyArgs} args - Arguments to filter Loans to delete.
+     * @example
+     * // Delete a few Loans
+     * const { count } = await prisma.loan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LoanDeleteManyArgs>(args?: SelectSubset<T, LoanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Loans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Loans
+     * const loan = await prisma.loan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LoanUpdateManyArgs>(args: SelectSubset<T, LoanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Loans and returns the data updated in the database.
+     * @param {LoanUpdateManyAndReturnArgs} args - Arguments to update many Loans.
+     * @example
+     * // Update many Loans
+     * const loan = await prisma.loan.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Loans and only return the `id`
+     * const loanWithIdOnly = await prisma.loan.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LoanUpdateManyAndReturnArgs>(args: SelectSubset<T, LoanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Loan.
+     * @param {LoanUpsertArgs} args - Arguments to update or create a Loan.
+     * @example
+     * // Update or create a Loan
+     * const loan = await prisma.loan.upsert({
+     *   create: {
+     *     // ... data to create a Loan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Loan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LoanUpsertArgs>(args: SelectSubset<T, LoanUpsertArgs<ExtArgs>>): Prisma__LoanClient<$Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Loans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanCountArgs} args - Arguments to filter Loans to count.
+     * @example
+     * // Count the number of Loans
+     * const count = await prisma.loan.count({
+     *   where: {
+     *     // ... the filter for the Loans we want to count
+     *   }
+     * })
+    **/
+    count<T extends LoanCountArgs>(
+      args?: Subset<T, LoanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LoanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Loan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LoanAggregateArgs>(args: Subset<T, LoanAggregateArgs>): Prisma.PrismaPromise<GetLoanAggregateType<T>>
+
+    /**
+     * Group by Loan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LoanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LoanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LoanGroupByArgs['orderBy'] }
+        : { orderBy?: LoanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LoanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLoanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Loan model
+   */
+  readonly fields: LoanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Loan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LoanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    book<T extends BookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookDefaultArgs<ExtArgs>>): Prisma__BookClient<$Result.GetResult<Prisma.$BookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Loan model
+   */
+  interface LoanFieldRefs {
+    readonly id: FieldRef<"Loan", 'String'>
+    readonly bookId: FieldRef<"Loan", 'String'>
+    readonly userId: FieldRef<"Loan", 'String'>
+    readonly fechaPrestamo: FieldRef<"Loan", 'DateTime'>
+    readonly fechaDevolucion: FieldRef<"Loan", 'DateTime'>
+    readonly estado: FieldRef<"Loan", 'LoanStatus'>
+    readonly createdAt: FieldRef<"Loan", 'DateTime'>
+    readonly updatedAt: FieldRef<"Loan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Loan findUnique
+   */
+  export type LoanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter, which Loan to fetch.
+     */
+    where: LoanWhereUniqueInput
+  }
+
+  /**
+   * Loan findUniqueOrThrow
+   */
+  export type LoanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter, which Loan to fetch.
+     */
+    where: LoanWhereUniqueInput
+  }
+
+  /**
+   * Loan findFirst
+   */
+  export type LoanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter, which Loan to fetch.
+     */
+    where?: LoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Loans to fetch.
+     */
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Loans.
+     */
+    cursor?: LoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Loans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Loans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Loans.
+     */
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
+   * Loan findFirstOrThrow
+   */
+  export type LoanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter, which Loan to fetch.
+     */
+    where?: LoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Loans to fetch.
+     */
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Loans.
+     */
+    cursor?: LoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Loans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Loans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Loans.
+     */
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
+   * Loan findMany
+   */
+  export type LoanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter, which Loans to fetch.
+     */
+    where?: LoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Loans to fetch.
+     */
+    orderBy?: LoanOrderByWithRelationInput | LoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Loans.
+     */
+    cursor?: LoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Loans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Loans.
+     */
+    skip?: number
+    distinct?: LoanScalarFieldEnum | LoanScalarFieldEnum[]
+  }
+
+  /**
+   * Loan create
+   */
+  export type LoanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Loan.
+     */
+    data: XOR<LoanCreateInput, LoanUncheckedCreateInput>
+  }
+
+  /**
+   * Loan createMany
+   */
+  export type LoanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Loans.
+     */
+    data: LoanCreateManyInput | LoanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Loan createManyAndReturn
+   */
+  export type LoanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * The data used to create many Loans.
+     */
+    data: LoanCreateManyInput | LoanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Loan update
+   */
+  export type LoanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Loan.
+     */
+    data: XOR<LoanUpdateInput, LoanUncheckedUpdateInput>
+    /**
+     * Choose, which Loan to update.
+     */
+    where: LoanWhereUniqueInput
+  }
+
+  /**
+   * Loan updateMany
+   */
+  export type LoanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Loans.
+     */
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyInput>
+    /**
+     * Filter which Loans to update
+     */
+    where?: LoanWhereInput
+    /**
+     * Limit how many Loans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Loan updateManyAndReturn
+   */
+  export type LoanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * The data used to update Loans.
+     */
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyInput>
+    /**
+     * Filter which Loans to update
+     */
+    where?: LoanWhereInput
+    /**
+     * Limit how many Loans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Loan upsert
+   */
+  export type LoanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Loan to update in case it exists.
+     */
+    where: LoanWhereUniqueInput
+    /**
+     * In case the Loan found by the `where` argument doesn't exist, create a new Loan with this data.
+     */
+    create: XOR<LoanCreateInput, LoanUncheckedCreateInput>
+    /**
+     * In case the Loan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LoanUpdateInput, LoanUncheckedUpdateInput>
+  }
+
+  /**
+   * Loan delete
+   */
+  export type LoanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+    /**
+     * Filter which Loan to delete.
+     */
+    where: LoanWhereUniqueInput
+  }
+
+  /**
+   * Loan deleteMany
+   */
+  export type LoanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Loans to delete
+     */
+    where?: LoanWhereInput
+    /**
+     * Limit how many Loans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Loan without action
+   */
+  export type LoanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Loan
+     */
+    select?: LoanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Loan
+     */
+    omit?: LoanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LoanInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3295,6 +5806,34 @@ export namespace Prisma {
   };
 
   export type EntryScalarFieldEnum = (typeof EntryScalarFieldEnum)[keyof typeof EntryScalarFieldEnum]
+
+
+  export const BookScalarFieldEnum: {
+    id: 'id',
+    id_libro: 'id_libro',
+    unidad: 'unidad',
+    titulo: 'titulo',
+    autor: 'autor',
+    clasificacion: 'clasificacion',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
+
+
+  export const LoanScalarFieldEnum: {
+    id: 'id',
+    bookId: 'bookId',
+    userId: 'userId',
+    fechaPrestamo: 'fechaPrestamo',
+    fechaDevolucion: 'fechaDevolucion',
+    estado: 'estado',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3387,6 +5926,34 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'LoanStatus'
+   */
+  export type EnumLoanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'LoanStatus[]'
+   */
+  export type ListEnumLoanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoanStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -3408,6 +5975,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isActive?: BoolFilter<"User"> | boolean
     entries?: EntryListRelationFilter
+    loans?: LoanListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3423,6 +5991,7 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     isActive?: SortOrder
     entries?: EntryOrderByRelationAggregateInput
+    loans?: LoanOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3441,6 +6010,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isActive?: BoolFilter<"User"> | boolean
     entries?: EntryListRelationFilter
+    loans?: LoanListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3547,6 +6117,151 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Entry"> | Date | string
   }
 
+  export type BookWhereInput = {
+    AND?: BookWhereInput | BookWhereInput[]
+    OR?: BookWhereInput[]
+    NOT?: BookWhereInput | BookWhereInput[]
+    id?: StringFilter<"Book"> | string
+    id_libro?: StringFilter<"Book"> | string
+    unidad?: IntFilter<"Book"> | number
+    titulo?: StringFilter<"Book"> | string
+    autor?: StringFilter<"Book"> | string
+    clasificacion?: StringFilter<"Book"> | string
+    createdAt?: DateTimeFilter<"Book"> | Date | string
+    updatedAt?: DateTimeFilter<"Book"> | Date | string
+    loans?: LoanListRelationFilter
+  }
+
+  export type BookOrderByWithRelationInput = {
+    id?: SortOrder
+    id_libro?: SortOrder
+    unidad?: SortOrder
+    titulo?: SortOrder
+    autor?: SortOrder
+    clasificacion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    loans?: LoanOrderByRelationAggregateInput
+  }
+
+  export type BookWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    id_libro?: string
+    AND?: BookWhereInput | BookWhereInput[]
+    OR?: BookWhereInput[]
+    NOT?: BookWhereInput | BookWhereInput[]
+    unidad?: IntFilter<"Book"> | number
+    titulo?: StringFilter<"Book"> | string
+    autor?: StringFilter<"Book"> | string
+    clasificacion?: StringFilter<"Book"> | string
+    createdAt?: DateTimeFilter<"Book"> | Date | string
+    updatedAt?: DateTimeFilter<"Book"> | Date | string
+    loans?: LoanListRelationFilter
+  }, "id" | "id_libro">
+
+  export type BookOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_libro?: SortOrder
+    unidad?: SortOrder
+    titulo?: SortOrder
+    autor?: SortOrder
+    clasificacion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BookCountOrderByAggregateInput
+    _avg?: BookAvgOrderByAggregateInput
+    _max?: BookMaxOrderByAggregateInput
+    _min?: BookMinOrderByAggregateInput
+    _sum?: BookSumOrderByAggregateInput
+  }
+
+  export type BookScalarWhereWithAggregatesInput = {
+    AND?: BookScalarWhereWithAggregatesInput | BookScalarWhereWithAggregatesInput[]
+    OR?: BookScalarWhereWithAggregatesInput[]
+    NOT?: BookScalarWhereWithAggregatesInput | BookScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Book"> | string
+    id_libro?: StringWithAggregatesFilter<"Book"> | string
+    unidad?: IntWithAggregatesFilter<"Book"> | number
+    titulo?: StringWithAggregatesFilter<"Book"> | string
+    autor?: StringWithAggregatesFilter<"Book"> | string
+    clasificacion?: StringWithAggregatesFilter<"Book"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Book"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Book"> | Date | string
+  }
+
+  export type LoanWhereInput = {
+    AND?: LoanWhereInput | LoanWhereInput[]
+    OR?: LoanWhereInput[]
+    NOT?: LoanWhereInput | LoanWhereInput[]
+    id?: StringFilter<"Loan"> | string
+    bookId?: StringFilter<"Loan"> | string
+    userId?: StringFilter<"Loan"> | string
+    fechaPrestamo?: DateTimeFilter<"Loan"> | Date | string
+    fechaDevolucion?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    estado?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
+    createdAt?: DateTimeFilter<"Loan"> | Date | string
+    updatedAt?: DateTimeFilter<"Loan"> | Date | string
+    book?: XOR<BookScalarRelationFilter, BookWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LoanOrderByWithRelationInput = {
+    id?: SortOrder
+    bookId?: SortOrder
+    userId?: SortOrder
+    fechaPrestamo?: SortOrder
+    fechaDevolucion?: SortOrderInput | SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    book?: BookOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LoanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LoanWhereInput | LoanWhereInput[]
+    OR?: LoanWhereInput[]
+    NOT?: LoanWhereInput | LoanWhereInput[]
+    bookId?: StringFilter<"Loan"> | string
+    userId?: StringFilter<"Loan"> | string
+    fechaPrestamo?: DateTimeFilter<"Loan"> | Date | string
+    fechaDevolucion?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    estado?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
+    createdAt?: DateTimeFilter<"Loan"> | Date | string
+    updatedAt?: DateTimeFilter<"Loan"> | Date | string
+    book?: XOR<BookScalarRelationFilter, BookWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LoanOrderByWithAggregationInput = {
+    id?: SortOrder
+    bookId?: SortOrder
+    userId?: SortOrder
+    fechaPrestamo?: SortOrder
+    fechaDevolucion?: SortOrderInput | SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LoanCountOrderByAggregateInput
+    _max?: LoanMaxOrderByAggregateInput
+    _min?: LoanMinOrderByAggregateInput
+  }
+
+  export type LoanScalarWhereWithAggregatesInput = {
+    AND?: LoanScalarWhereWithAggregatesInput | LoanScalarWhereWithAggregatesInput[]
+    OR?: LoanScalarWhereWithAggregatesInput[]
+    NOT?: LoanScalarWhereWithAggregatesInput | LoanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Loan"> | string
+    bookId?: StringWithAggregatesFilter<"Loan"> | string
+    userId?: StringWithAggregatesFilter<"Loan"> | string
+    fechaPrestamo?: DateTimeWithAggregatesFilter<"Loan"> | Date | string
+    fechaDevolucion?: DateTimeNullableWithAggregatesFilter<"Loan"> | Date | string | null
+    estado?: EnumLoanStatusWithAggregatesFilter<"Loan"> | $Enums.LoanStatus
+    createdAt?: DateTimeWithAggregatesFilter<"Loan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Loan"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -3560,6 +6275,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     isActive?: boolean
     entries?: EntryCreateNestedManyWithoutUserInput
+    loans?: LoanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3575,6 +6291,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     isActive?: boolean
     entries?: EntryUncheckedCreateNestedManyWithoutUserInput
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3590,6 +6307,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     entries?: EntryUpdateManyWithoutUserNestedInput
+    loans?: LoanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3605,6 +6323,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     entries?: EntryUncheckedUpdateManyWithoutUserNestedInput
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3725,6 +6444,162 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookCreateInput = {
+    id?: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    loans?: LoanCreateNestedManyWithoutBookInput
+  }
+
+  export type BookUncheckedCreateInput = {
+    id?: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    loans?: LoanUncheckedCreateNestedManyWithoutBookInput
+  }
+
+  export type BookUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loans?: LoanUpdateManyWithoutBookNestedInput
+  }
+
+  export type BookUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loans?: LoanUncheckedUpdateManyWithoutBookNestedInput
+  }
+
+  export type BookCreateManyInput = {
+    id?: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanCreateInput = {
+    id?: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    book: BookCreateNestedOneWithoutLoansInput
+    user: UserCreateNestedOneWithoutLoansInput
+  }
+
+  export type LoanUncheckedCreateInput = {
+    id?: string
+    bookId: string
+    userId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    book?: BookUpdateOneRequiredWithoutLoansNestedInput
+    user?: UserUpdateOneRequiredWithoutLoansNestedInput
+  }
+
+  export type LoanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanCreateManyInput = {
+    id?: string
+    bookId: string
+    userId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3795,12 +6670,22 @@ export namespace Prisma {
     none?: EntryWhereInput
   }
 
+  export type LoanListRelationFilter = {
+    every?: LoanWhereInput
+    some?: LoanWhereInput
+    none?: LoanWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type EntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LoanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3966,6 +6851,129 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BookCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_libro?: SortOrder
+    unidad?: SortOrder
+    titulo?: SortOrder
+    autor?: SortOrder
+    clasificacion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookAvgOrderByAggregateInput = {
+    unidad?: SortOrder
+  }
+
+  export type BookMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_libro?: SortOrder
+    unidad?: SortOrder
+    titulo?: SortOrder
+    autor?: SortOrder
+    clasificacion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_libro?: SortOrder
+    unidad?: SortOrder
+    titulo?: SortOrder
+    autor?: SortOrder
+    clasificacion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookSumOrderByAggregateInput = {
+    unidad?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumLoanStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LoanStatus | EnumLoanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLoanStatusFilter<$PrismaModel> | $Enums.LoanStatus
+  }
+
+  export type BookScalarRelationFilter = {
+    is?: BookWhereInput
+    isNot?: BookWhereInput
+  }
+
+  export type LoanCountOrderByAggregateInput = {
+    id?: SortOrder
+    bookId?: SortOrder
+    userId?: SortOrder
+    fechaPrestamo?: SortOrder
+    fechaDevolucion?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LoanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bookId?: SortOrder
+    userId?: SortOrder
+    fechaPrestamo?: SortOrder
+    fechaDevolucion?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LoanMinOrderByAggregateInput = {
+    id?: SortOrder
+    bookId?: SortOrder
+    userId?: SortOrder
+    fechaPrestamo?: SortOrder
+    fechaDevolucion?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumLoanStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LoanStatus | EnumLoanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLoanStatusWithAggregatesFilter<$PrismaModel> | $Enums.LoanStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLoanStatusFilter<$PrismaModel>
+    _max?: NestedEnumLoanStatusFilter<$PrismaModel>
+  }
+
   export type EntryCreateNestedManyWithoutUserInput = {
     create?: XOR<EntryCreateWithoutUserInput, EntryUncheckedCreateWithoutUserInput> | EntryCreateWithoutUserInput[] | EntryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EntryCreateOrConnectWithoutUserInput | EntryCreateOrConnectWithoutUserInput[]
@@ -3973,11 +6981,25 @@ export namespace Prisma {
     connect?: EntryWhereUniqueInput | EntryWhereUniqueInput[]
   }
 
+  export type LoanCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
   export type EntryUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<EntryCreateWithoutUserInput, EntryUncheckedCreateWithoutUserInput> | EntryCreateWithoutUserInput[] | EntryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EntryCreateOrConnectWithoutUserInput | EntryCreateOrConnectWithoutUserInput[]
     createMany?: EntryCreateManyUserInputEnvelope
     connect?: EntryWhereUniqueInput | EntryWhereUniqueInput[]
+  }
+
+  export type LoanUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4018,6 +7040,20 @@ export namespace Prisma {
     deleteMany?: EntryScalarWhereInput | EntryScalarWhereInput[]
   }
 
+  export type LoanUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
   export type EntryUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<EntryCreateWithoutUserInput, EntryUncheckedCreateWithoutUserInput> | EntryCreateWithoutUserInput[] | EntryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EntryCreateOrConnectWithoutUserInput | EntryCreateOrConnectWithoutUserInput[]
@@ -4032,6 +7068,20 @@ export namespace Prisma {
     deleteMany?: EntryScalarWhereInput | EntryScalarWhereInput[]
   }
 
+  export type LoanUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput> | LoanCreateWithoutUserInput[] | LoanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutUserInput | LoanCreateOrConnectWithoutUserInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutUserInput | LoanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LoanCreateManyUserInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutUserInput | LoanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutUserInput | LoanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutEntriesInput = {
     create?: XOR<UserCreateWithoutEntriesInput, UserUncheckedCreateWithoutEntriesInput>
     connectOrCreate?: UserCreateOrConnectWithoutEntriesInput
@@ -4044,6 +7094,88 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutEntriesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEntriesInput, UserUpdateWithoutEntriesInput>, UserUncheckedUpdateWithoutEntriesInput>
+  }
+
+  export type LoanCreateNestedManyWithoutBookInput = {
+    create?: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput> | LoanCreateWithoutBookInput[] | LoanUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutBookInput | LoanCreateOrConnectWithoutBookInput[]
+    createMany?: LoanCreateManyBookInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
+  export type LoanUncheckedCreateNestedManyWithoutBookInput = {
+    create?: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput> | LoanCreateWithoutBookInput[] | LoanUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutBookInput | LoanCreateOrConnectWithoutBookInput[]
+    createMany?: LoanCreateManyBookInputEnvelope
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type LoanUpdateManyWithoutBookNestedInput = {
+    create?: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput> | LoanCreateWithoutBookInput[] | LoanUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutBookInput | LoanCreateOrConnectWithoutBookInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutBookInput | LoanUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: LoanCreateManyBookInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutBookInput | LoanUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutBookInput | LoanUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
+  export type LoanUncheckedUpdateManyWithoutBookNestedInput = {
+    create?: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput> | LoanCreateWithoutBookInput[] | LoanUncheckedCreateWithoutBookInput[]
+    connectOrCreate?: LoanCreateOrConnectWithoutBookInput | LoanCreateOrConnectWithoutBookInput[]
+    upsert?: LoanUpsertWithWhereUniqueWithoutBookInput | LoanUpsertWithWhereUniqueWithoutBookInput[]
+    createMany?: LoanCreateManyBookInputEnvelope
+    set?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    disconnect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    delete?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    connect?: LoanWhereUniqueInput | LoanWhereUniqueInput[]
+    update?: LoanUpdateWithWhereUniqueWithoutBookInput | LoanUpdateWithWhereUniqueWithoutBookInput[]
+    updateMany?: LoanUpdateManyWithWhereWithoutBookInput | LoanUpdateManyWithWhereWithoutBookInput[]
+    deleteMany?: LoanScalarWhereInput | LoanScalarWhereInput[]
+  }
+
+  export type BookCreateNestedOneWithoutLoansInput = {
+    create?: XOR<BookCreateWithoutLoansInput, BookUncheckedCreateWithoutLoansInput>
+    connectOrCreate?: BookCreateOrConnectWithoutLoansInput
+    connect?: BookWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLoansInput = {
+    create?: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLoansInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumLoanStatusFieldUpdateOperationsInput = {
+    set?: $Enums.LoanStatus
+  }
+
+  export type BookUpdateOneRequiredWithoutLoansNestedInput = {
+    create?: XOR<BookCreateWithoutLoansInput, BookUncheckedCreateWithoutLoansInput>
+    connectOrCreate?: BookCreateOrConnectWithoutLoansInput
+    upsert?: BookUpsertWithoutLoansInput
+    connect?: BookWhereUniqueInput
+    update?: XOR<XOR<BookUpdateToOneWithWhereWithoutLoansInput, BookUpdateWithoutLoansInput>, BookUncheckedUpdateWithoutLoansInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLoansNestedInput = {
+    create?: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLoansInput
+    upsert?: UserUpsertWithoutLoansInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLoansInput, UserUpdateWithoutLoansInput>, UserUncheckedUpdateWithoutLoansInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4210,6 +7342,50 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumLoanStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LoanStatus | EnumLoanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLoanStatusFilter<$PrismaModel> | $Enums.LoanStatus
+  }
+
+  export type NestedEnumLoanStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LoanStatus | EnumLoanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LoanStatus[] | ListEnumLoanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLoanStatusWithAggregatesFilter<$PrismaModel> | $Enums.LoanStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLoanStatusFilter<$PrismaModel>
+    _max?: NestedEnumLoanStatusFilter<$PrismaModel>
+  }
+
   export type EntryCreateWithoutUserInput = {
     id?: string
     entryTime?: Date | string
@@ -4237,6 +7413,36 @@ export namespace Prisma {
 
   export type EntryCreateManyUserInputEnvelope = {
     data: EntryCreateManyUserInput | EntryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LoanCreateWithoutUserInput = {
+    id?: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    book: BookCreateNestedOneWithoutLoansInput
+  }
+
+  export type LoanUncheckedCreateWithoutUserInput = {
+    id?: string
+    bookId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanCreateOrConnectWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
+  }
+
+  export type LoanCreateManyUserInputEnvelope = {
+    data: LoanCreateManyUserInput | LoanCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -4270,6 +7476,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Entry"> | Date | string
   }
 
+  export type LoanUpsertWithWhereUniqueWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    update: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
+    create: XOR<LoanCreateWithoutUserInput, LoanUncheckedCreateWithoutUserInput>
+  }
+
+  export type LoanUpdateWithWhereUniqueWithoutUserInput = {
+    where: LoanWhereUniqueInput
+    data: XOR<LoanUpdateWithoutUserInput, LoanUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LoanUpdateManyWithWhereWithoutUserInput = {
+    where: LoanScalarWhereInput
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LoanScalarWhereInput = {
+    AND?: LoanScalarWhereInput | LoanScalarWhereInput[]
+    OR?: LoanScalarWhereInput[]
+    NOT?: LoanScalarWhereInput | LoanScalarWhereInput[]
+    id?: StringFilter<"Loan"> | string
+    bookId?: StringFilter<"Loan"> | string
+    userId?: StringFilter<"Loan"> | string
+    fechaPrestamo?: DateTimeFilter<"Loan"> | Date | string
+    fechaDevolucion?: DateTimeNullableFilter<"Loan"> | Date | string | null
+    estado?: EnumLoanStatusFilter<"Loan"> | $Enums.LoanStatus
+    createdAt?: DateTimeFilter<"Loan"> | Date | string
+    updatedAt?: DateTimeFilter<"Loan"> | Date | string
+  }
+
   export type UserCreateWithoutEntriesInput = {
     id?: string
     name: string
@@ -4282,6 +7518,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     isActive?: boolean
+    loans?: LoanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEntriesInput = {
@@ -4296,6 +7533,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     isActive?: boolean
+    loans?: LoanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEntriesInput = {
@@ -4326,6 +7564,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    loans?: LoanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEntriesInput = {
@@ -4340,6 +7579,189 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    loans?: LoanUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type LoanCreateWithoutBookInput = {
+    id?: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLoansInput
+  }
+
+  export type LoanUncheckedCreateWithoutBookInput = {
+    id?: string
+    userId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanCreateOrConnectWithoutBookInput = {
+    where: LoanWhereUniqueInput
+    create: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput>
+  }
+
+  export type LoanCreateManyBookInputEnvelope = {
+    data: LoanCreateManyBookInput | LoanCreateManyBookInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LoanUpsertWithWhereUniqueWithoutBookInput = {
+    where: LoanWhereUniqueInput
+    update: XOR<LoanUpdateWithoutBookInput, LoanUncheckedUpdateWithoutBookInput>
+    create: XOR<LoanCreateWithoutBookInput, LoanUncheckedCreateWithoutBookInput>
+  }
+
+  export type LoanUpdateWithWhereUniqueWithoutBookInput = {
+    where: LoanWhereUniqueInput
+    data: XOR<LoanUpdateWithoutBookInput, LoanUncheckedUpdateWithoutBookInput>
+  }
+
+  export type LoanUpdateManyWithWhereWithoutBookInput = {
+    where: LoanScalarWhereInput
+    data: XOR<LoanUpdateManyMutationInput, LoanUncheckedUpdateManyWithoutBookInput>
+  }
+
+  export type BookCreateWithoutLoansInput = {
+    id?: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookUncheckedCreateWithoutLoansInput = {
+    id?: string
+    id_libro: string
+    unidad: number
+    titulo: string
+    autor: string
+    clasificacion: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookCreateOrConnectWithoutLoansInput = {
+    where: BookWhereUniqueInput
+    create: XOR<BookCreateWithoutLoansInput, BookUncheckedCreateWithoutLoansInput>
+  }
+
+  export type UserCreateWithoutLoansInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    matricula?: string | null
+    carrera?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    isActive?: boolean
+    entries?: EntryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLoansInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    matricula?: string | null
+    carrera?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    isActive?: boolean
+    entries?: EntryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLoansInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+  }
+
+  export type BookUpsertWithoutLoansInput = {
+    update: XOR<BookUpdateWithoutLoansInput, BookUncheckedUpdateWithoutLoansInput>
+    create: XOR<BookCreateWithoutLoansInput, BookUncheckedCreateWithoutLoansInput>
+    where?: BookWhereInput
+  }
+
+  export type BookUpdateToOneWithWhereWithoutLoansInput = {
+    where?: BookWhereInput
+    data: XOR<BookUpdateWithoutLoansInput, BookUncheckedUpdateWithoutLoansInput>
+  }
+
+  export type BookUpdateWithoutLoansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookUncheckedUpdateWithoutLoansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_libro?: StringFieldUpdateOperationsInput | string
+    unidad?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    autor?: StringFieldUpdateOperationsInput | string
+    clasificacion?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutLoansInput = {
+    update: XOR<UserUpdateWithoutLoansInput, UserUncheckedUpdateWithoutLoansInput>
+    create: XOR<UserCreateWithoutLoansInput, UserUncheckedCreateWithoutLoansInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLoansInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLoansInput, UserUncheckedUpdateWithoutLoansInput>
+  }
+
+  export type UserUpdateWithoutLoansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    matricula?: NullableStringFieldUpdateOperationsInput | string | null
+    carrera?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    entries?: EntryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLoansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    matricula?: NullableStringFieldUpdateOperationsInput | string | null
+    carrera?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    entries?: EntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EntryCreateManyUserInput = {
@@ -4348,6 +7770,16 @@ export namespace Prisma {
     exitTime?: Date | string | null
     purpose?: string | null
     comments?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanCreateManyUserInput = {
+    id?: string
+    bookId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4378,6 +7810,76 @@ export namespace Prisma {
     exitTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    book?: BookUpdateOneRequiredWithoutLoansNestedInput
+  }
+
+  export type LoanUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanCreateManyBookInput = {
+    id?: string
+    userId: string
+    fechaPrestamo?: Date | string
+    fechaDevolucion?: Date | string | null
+    estado?: $Enums.LoanStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LoanUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLoansNestedInput
+  }
+
+  export type LoanUncheckedUpdateWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LoanUncheckedUpdateManyWithoutBookInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fechaPrestamo?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaDevolucion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estado?: EnumLoanStatusFieldUpdateOperationsInput | $Enums.LoanStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

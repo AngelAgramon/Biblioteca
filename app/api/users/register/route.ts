@@ -5,7 +5,7 @@ import prisma from "../../../lib/prisma"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, password, matricula, carrera } = body
+    const { name, email, password, matricula, carrera } = body as { name: string; email: string; password: string; matricula: string; carrera: string }
 
     // Validaciones básicas
     if (!name || !email || !password) {

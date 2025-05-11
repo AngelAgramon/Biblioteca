@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { User, Mail, GraduationCap, Calendar } from "lucide-react"
-import { useAuth } from "@/contexts/AuthContext"
-import UserQRCode from "@/components/UserQRCode"
+import { useAuth } from "../../contexts/AuthContext"
+import UserQRCode from "../../components/UserQRCode"
 
 export default function Profile() {
   const { user } = useAuth()

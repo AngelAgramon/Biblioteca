@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { BookOpen, Calendar, ArrowRight } from "lucide-react"
 
 interface Loan {

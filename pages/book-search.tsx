@@ -1,11 +1,23 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { BookOpen, ChevronLeft, ChevronRight, Filter, Search, Star } from "lucide-react"
 import Header from "../components/layout/header"
 import Sidebar from "../components/layout/sidebar"
+
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  category: string;
+  location: string;
+  available: boolean;
+  copies: number;
+  coverImage: string;
+  rating: number;
+  year: number;
+  description: string;
+}
 
 export default function BookSearch() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -15,6 +27,9 @@ export default function BookSearch() {
   const [selectedAvailability, setSelectedAvailability] = useState("Todos")
   const [showFilters, setShowFilters] = useState(false)
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+  const [books, setBooks] = useState<Book[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed)
@@ -33,145 +48,43 @@ export default function BookSearch() {
     "Contabilidad",
   ]
 
-  const locations = ["Todas", "Unidad Tijuana", "Unidad Tomás Aquino"]
+  const locations = ["Todas", "Unidad 1", "Unidad 2"]
 
   const availabilityOptions = ["Todos", "Disponibles", "No disponibles"]
 
-  const books = [
-    {
-      id: 1,
-      title: "Fundamentos de Programación",
-      author: "Luis Joyanes Aguilar",
-      category: "Ingeniería en Sistemas",
-      location: "Unidad Tijuana",
-      available: true,
-      copies: 5,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.5,
-      year: 2019,
-      description:
-        "Una introducción completa a los fundamentos de la programación, con ejemplos en varios lenguajes como Java, Python y C++.",
-    },
-    {
-      id: 2,
-      title: "Cálculo Diferencial e Integral",
-      author: "James Stewart",
-      category: "Ciencias",
-      location: "Unidad Tomás Aquino",
-      available: true,
-      copies: 8,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.8,
-      year: 2020,
-      description:
-        "Libro de texto estándar para cursos de cálculo, con explicaciones claras y numerosos ejemplos prácticos.",
-    },
-    {
-      id: 3,
-      title: "Redes de Computadoras",
-      author: "Andrew S. Tanenbaum",
-      category: "Ingeniería en Sistemas",
-      location: "Unidad Tijuana",
-      available: false,
-      copies: 0,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.7,
-      year: 2018,
-      description:
-        "Un enfoque detallado de las redes de computadoras, desde los fundamentos hasta las aplicaciones avanzadas.",
-    },
-    {
-      id: 4,
-      title: "Inteligencia Artificial",
-      author: "Stuart Russell, Peter Norvig",
-      category: "Ingeniería en Sistemas",
-      location: "Unidad Tomás Aquino",
-      available: true,
-      copies: 3,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.9,
-      year: 2021,
-      description:
-        "La biblia de la inteligencia artificial, que cubre desde los fundamentos hasta las técnicas más avanzadas.",
-    },
-    {
-      id: 5,
-      title: "Administración Moderna",
-      author: "Samuel C. Certo",
-      category: "Administración",
-      location: "Unidad Tijuana",
-      available: true,
-      copies: 6,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.2,
-      year: 2017,
-      description:
-        "Una visión contemporánea de la administración de empresas, con casos de estudio y ejemplos prácticos.",
-    },
-    {
-      id: 6,
-      title: "Resistencia de Materiales",
-      author: "Ferdinand P. Beer",
-      category: "Ingeniería Civil",
-      location: "Unidad Tomás Aquino",
-      available: true,
-      copies: 4,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.6,
-      year: 2018,
-      description:
-        "Texto fundamental para entender el comportamiento de los materiales bajo diferentes tipos de cargas.",
-    },
-    {
-      id: 7,
-      title: "Circuitos Eléctricos",
-      author: "James W. Nilsson",
-      category: "Ingeniería Eléctrica",
-      location: "Unidad Tijuana",
-      available: true,
-      copies: 2,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.4,
-      year: 2019,
-      description: "Introducción completa al análisis de circuitos eléctricos, con numerosos ejemplos y problemas.",
-    },
-    {
-      id: 8,
-      title: "Física Universitaria",
-      author: "Sears Zemansky",
-      category: "Ingeniería Mecánica",
-      location: "Unidad Tomás Aquino",
-      available: false,
-      copies: 0,
-      coverImage: "/placeholder.svg?height=200&width=150",
-      rating: 4.7,
-      year: 2020,
-      description:
-        "Texto clásico de física para estudiantes universitarios, con explicaciones claras y ejemplos prácticos.",
-    },
-  ]
+  useEffect(() => {
+    fetchBooks()
+  }, [searchQuery, selectedCategory, selectedLocation, selectedAvailability])
 
-  const filteredBooks = books.filter((book) => {
-    const queryMatch =
-      searchQuery === "" ||
-      book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const fetchBooks = async () => {
+    try {
+      setLoading(true)
+      const queryParams = new URLSearchParams({
+        search: searchQuery,
+        category: selectedCategory,
+        location: selectedLocation,
+        availability: selectedAvailability,
+      })
 
-    const categoryMatch = selectedCategory === "Todas" || book.category === selectedCategory
-    const locationMatch = selectedLocation === "Todas" || book.location === selectedLocation
-    const availabilityMatch =
-      selectedAvailability === "Todos" ||
-      (selectedAvailability === "Disponibles" && book.available) ||
-      (selectedAvailability === "No disponibles" && !book.available)
+      const response = await fetch(`/api/books?${queryParams}`)
+      if (!response.ok) {
+        throw new Error('Error al cargar los libros')
+      }
 
-    return queryMatch && categoryMatch && locationMatch && availabilityMatch
-  })
+      const data = await response.json()
+      setBooks(data)
+      setError(null)
+    } catch (err) {
+      setError('Error al cargar los libros. Por favor, intenta de nuevo.')
+      console.error('Error:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    // En una aplicación real, aquí enviaríamos una solicitud al backend
-    console.log("Buscando:", searchQuery)
+    fetchBooks()
   }
 
   return (
@@ -302,7 +215,7 @@ export default function BookSearch() {
 
             <div className="mb-4 flex justify-between items-center">
               <div className="text-sm text-gray-700">
-                Mostrando <span className="font-medium">{filteredBooks.length}</span> de{" "}
+                Mostrando <span className="font-medium">{books.length}</span> de{" "}
                 <span className="font-medium">{books.length}</span> libros
               </div>
 
@@ -348,7 +261,15 @@ export default function BookSearch() {
               </div>
             </div>
 
-            {filteredBooks.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-sm text-gray-500">Cargando libros...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <p className="text-sm text-red-500">{error}</p>
+              </div>
+            ) : books.length === 0 ? (
               <div className="text-center py-12">
                 <BookOpen className="mx-auto h-12 w-12 text-gray-400" />
                 <h3 className="mt-2 text-lg font-medium text-gray-900">No se encontraron libros</h3>
@@ -358,7 +279,7 @@ export default function BookSearch() {
               </div>
             ) : viewMode === "grid" ? (
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {filteredBooks.map((book) => (
+                {books.map((book) => (
                   <div
                     key={book.id}
                     className="bg-white rounded-lg shadow overflow-hidden hover:shadow-md transition-shadow"
@@ -407,7 +328,7 @@ export default function BookSearch() {
             ) : (
               <div className="bg-white shadow overflow-hidden sm:rounded-md">
                 <ul className="divide-y divide-gray-200">
-                  {filteredBooks.map((book) => (
+                  {books.map((book) => (
                     <li key={book.id}>
                       <div className="px-4 py-4 sm:px-6 flex items-center">
                         <div className="flex-shrink-0 h-16 w-12 mr-4">

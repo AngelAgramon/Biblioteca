@@ -28,6 +28,7 @@ model User {
   lastLoginAt DateTime?
   isActive    Boolean   @default(true)
   entries     Entry[]
+  loans       Loan[]
 }
 
 // Modelo para registros de entrada
@@ -47,4 +48,38 @@ model Entry {
 enum Role {
   USER
   ADMIN
+}
+
+// Modelo para libros
+model Book {
+  id            String   @id @default(uuid())
+  id_libro      String   @unique
+  unidad        Int
+  titulo        String
+  autor         String
+  clasificacion String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  loans         Loan[]
+}
+
+// Modelo para préstamos
+model Loan {
+  id              String     @id @default(uuid())
+  bookId          String
+  book            Book       @relation(fields: [bookId], references: [id])
+  userId          String
+  user            User       @relation(fields: [userId], references: [id])
+  fechaPrestamo   DateTime   @default(now())
+  fechaDevolucion DateTime?
+  estado          LoanStatus @default(ACTIVO)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+// Enumeración para estado de préstamo
+enum LoanStatus {
+  ACTIVO
+  DEVUELTO
+  VENCIDO
 }
