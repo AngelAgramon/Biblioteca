@@ -57,6 +57,7 @@ model Book {
   titulo        String
   autor         String
   clasificacion String
+  disponible    Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   loans         Loan[]
