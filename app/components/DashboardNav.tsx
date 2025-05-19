@@ -23,6 +23,11 @@ export default function DashboardNav() {
       icon: <Home className="w-5 h-5" />,
     },
     {
+      name: "Catálogo",
+      href: "/catalog",
+      icon: <Book className="w-5 h-5" />,
+    },
+    {
       name: "Registrar Entrada",
       href: "/dashboard/entry",
       icon: <Book className="w-5 h-5" />,

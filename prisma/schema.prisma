@@ -72,6 +72,8 @@ model Loan {
   user          User      @relation(fields: [userId], references: [id])
   fechaPrestamo DateTime  @default(now())
   fechaDevolucion DateTime?
+  fechaLimite   DateTime  @default(dbgenerated("NOW() + INTERVAL '5 days'"))
+  multa         Float     @default(0)
   estado        LoanStatus @default(ACTIVO)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt

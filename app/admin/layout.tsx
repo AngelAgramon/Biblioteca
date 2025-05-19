@@ -12,11 +12,13 @@ import {
   LogOut,
   Menu,
   X,
+  Library,
 } from "lucide-react"
 import Link from "next/link"
 
 const navigation = [
   { name: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
+  { name: "Catálogo", href: "/admin/catalog", icon: Library },
   { name: "Usuarios", href: "/admin/users", icon: Users },
   { name: "Libros", href: "/admin/books", icon: BookOpen },
   { name: "Préstamos", href: "/admin/loans", icon: Calendar },

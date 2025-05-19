@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, BookOpen, Check, Clock, AlertTriangle } from "lucide-react"
+import { ArrowLeft, BookOpen, Check, Clock, AlertTriangle, AlertCircle, CheckCircle } from "lucide-react"
 import Link from "next/link"
 
 interface User {
@@ -21,9 +21,11 @@ interface Book {
 interface Loan {
   id: string;
   fechaPrestamo: string;
-  fechaDevolucion: string;
-  estado: "ACTIVO" | "DEVUELTO" | "VENCIDO";
+  fechaLimite: string;
+  fechaDevolucion: string | null;
+  estado: 'ACTIVO' | 'DEVUELTO' | 'VENCIDO';
   book: Book;
+  multa: number;
 }
 
 export default function UserLoansPage() {
@@ -66,41 +68,40 @@ export default function UserLoansPage() {
     }
   }, [session])
 
-  const getStatusBadge = (estado: string, fechaDevolucion: string) => {
-    const dueDate = new Date(fechaDevolucion)
-    const today = new Date()
-    
-    // Verificar si el préstamo está vencido (fecha de devolución es anterior a hoy)
-    const isOverdue = dueDate < today && estado === "ACTIVO"
-    
-    if (estado === "DEVUELTO") {
-      return (
-        <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700 flex items-center">
-          <Check className="h-3 w-3 mr-1" />
-          Devuelto
-        </span>
-      )
-    } else if (isOverdue) {
-      return (
-        <span className="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-700 flex items-center">
-          <AlertTriangle className="h-3 w-3 mr-1" />
-          Vencido
-        </span>
-      )
-    } else {
-      // Calcular días restantes
-      const diffTime = Math.abs(dueDate.getTime() - today.getTime())
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-      
-      return (
-        <span className="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-700 flex items-center">
-          <Clock className="h-3 w-3 mr-1" />
-          {diffDays} día(s) restante(s)
-        </span>
-      )
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('es-MX', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
+  const getStatusColor = (estado: string) => {
+    switch (estado) {
+      case 'ACTIVO':
+        return 'bg-blue-100 text-blue-700'
+      case 'DEVUELTO':
+        return 'bg-green-100 text-green-700'
+      case 'VENCIDO':
+        return 'bg-red-100 text-red-700'
+      default:
+        return 'bg-gray-100 text-gray-700'
     }
   }
-  
+
+  const getStatusIcon = (estado: string) => {
+    switch (estado) {
+      case 'ACTIVO':
+        return <Clock className="h-5 w-5" />
+      case 'DEVUELTO':
+        return <CheckCircle className="h-5 w-5" />
+      case 'VENCIDO':
+        return <AlertCircle className="h-5 w-5" />
+      default:
+        return <Clock className="h-5 w-5" />
+    }
+  }
+
   // Mostrar pantalla de carga mientras se verifica la sesión
   if (status === "loading" || loading) {
     return (
@@ -129,107 +130,95 @@ export default function UserLoansPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Mis Préstamos</h1>
-          <p className="mt-2 text-gray-600">Gestiona tus préstamos activos y ve el historial de tus devoluciones.</p>
-        </div>
-
-        {error ? (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center mb-8">
-            <div className="flex items-center justify-center text-red-600 mb-4">
-              <AlertTriangle className="h-8 w-8" />
-            </div>
-            <h2 className="text-xl font-semibold text-red-700 mb-2">Error</h2>
-            <p className="text-red-600">{error}</p>
-            <button 
-              onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 text-sm text-red-700 border border-red-300 rounded-md hover:bg-red-50"
-            >
-              Volver a intentar
-            </button>
+        <div className="space-y-8">
+          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <h1 className="text-3xl font-bold text-gray-900">Mis Préstamos</h1>
           </div>
-        ) : loans.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 text-center">
-            <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-              <BookOpen className="h-8 w-8 text-gray-400" />
-            </div>
-            <h2 className="mt-4 text-lg font-medium text-gray-900">No tienes préstamos activos</h2>
-            <p className="mt-2 text-gray-600">
-              Todavía no has solicitado ningún préstamo. Explora nuestro catálogo para encontrar libros de tu interés.
-            </p>
-            <div className="mt-6">
-              <Link
-                href="/catalog"
-                className="inline-flex items-center px-4 py-2.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+
+          {error ? (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center mb-8">
+              <div className="flex items-center justify-center text-red-600 mb-4">
+                <AlertTriangle className="h-8 w-8" />
+              </div>
+              <h2 className="text-xl font-semibold text-red-700 mb-2">Error</h2>
+              <p className="text-red-600">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="mt-4 px-4 py-2 text-sm text-red-700 border border-red-300 rounded-md hover:bg-red-50"
               >
-                <BookOpen className="h-4 w-4 mr-2" />
+                Volver a intentar
+              </button>
+            </div>
+          ) : loans.length === 0 ? (
+            <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 text-center">
+              <p className="text-gray-500">No tienes préstamos activos</p>
+              <Link href="/catalog" className="mt-4 inline-block text-primary hover:text-primary-dark">
                 Ver catálogo de libros
               </Link>
             </div>
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Libro
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Fecha de préstamo
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Fecha de devolución
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Estado
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {loans.map((loan) => (
-                    <tr key={loan.id}>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-primary/10 rounded-lg">
-                            <BookOpen className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{loan.book.titulo}</div>
-                            <div className="text-xs text-gray-500">{loan.book.autor}</div>
-                            <div className="text-xs text-gray-400">ID: {loan.book.id_libro}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">
-                          {new Date(loan.fechaPrestamo).toLocaleDateString('es-MX', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">
-                          {new Date(loan.fechaDevolucion).toLocaleDateString('es-MX', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        {getStatusBadge(loan.estado, loan.fechaDevolucion)}
-                      </td>
+          ) : (
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Libro
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Fecha de Préstamo
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Fecha Límite
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Estado
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Multa
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {loans.map((loan) => (
+                      <tr key={loan.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-medium text-gray-900">{loan.book.titulo}</div>
+                          <div className="text-sm text-gray-500">{loan.book.autor}</div>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {formatDate(loan.fechaPrestamo)}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          {formatDate(loan.fechaLimite)}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(loan.estado)}`}>
+                            {getStatusIcon(loan.estado)}
+                            <span className="ml-1">
+                              {loan.estado === 'ACTIVO' && 'Activo'}
+                              {loan.estado === 'DEVUELTO' && 'Devuelto'}
+                              {loan.estado === 'VENCIDO' && 'Vencido'}
+                            </span>
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm">
+                          {loan.multa > 0 ? (
+                            <span className="text-red-600 font-medium">
+                              ${loan.multa.toFixed(2)}
+                            </span>
+                          ) : (
+                            <span className="text-gray-500">Sin multa</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
 
       <footer className="bg-white mt-12">
